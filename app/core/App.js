@@ -5,6 +5,6 @@ import {
 
 export default () => (
   <View>
-
+    
   </View>
 );
