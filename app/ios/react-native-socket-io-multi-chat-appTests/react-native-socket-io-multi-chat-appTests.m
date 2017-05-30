@@ -16,11 +16,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface dailystrangerTests : XCTestCase
+@interface react-native-socket-io-multi-chat-appTests : XCTestCase
 
 @end
 
-@implementation dailystrangerTests
+@implementation react-native-socket-io-multi-chat-appTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

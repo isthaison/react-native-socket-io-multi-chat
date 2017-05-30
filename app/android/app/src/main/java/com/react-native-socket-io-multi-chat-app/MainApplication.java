@@ -1,4 +1,4 @@
-package com.dailystranger;
+package com.react-native-socket-io-multi-chat-app;
 
 import android.app.Application;
 

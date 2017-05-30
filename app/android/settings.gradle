@@ -1,3 +1,3 @@
-rootProject.name = 'dailystranger'
+rootProject.name = 'react-native-socket-io-multi-chat-app'
 
 include ':app'

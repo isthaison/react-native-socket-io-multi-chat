@@ -1,4 +1,4 @@
-package com.dailystranger;
+package com.react-native-socket-io-multi-chat-app;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "dailystranger";
+        return "react-native-socket-io-multi-chat-app";
     }
 }
