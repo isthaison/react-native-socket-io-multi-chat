@@ -1,7 +1,10 @@
 {
-  "name": "react-native-socket-io-multi-cha-api",
+  "name": "react-native-socket-io-multi-chat-api",
   "version": "0.0.1",
-  "description": "react-native-socket-io-multi-cha nodeJS api",
+  "description": "react-native-socket-io-multi-chat nodeJS api",
+  "scripts": {
+    "start": "node src/index.js"
+  },
   "dependencies": {
     "express": "^4.15.3",
     "socket.io": "^2.0.1"
