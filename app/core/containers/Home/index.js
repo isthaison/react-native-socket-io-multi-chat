@@ -6,8 +6,8 @@ import {
 import { connect } from 'react-redux';
 import List from './../../components/List';
 import Footer from './../../components/Footer';
-import SocketIOClient from 'socket.io-client/dist/socket.io';
-
+import Header from './../../components/Header'
+import Settings from './../../components/Settings'
 class Home extends Component {
   constructor(props) {
     super();
@@ -25,8 +25,13 @@ class Home extends Component {
     this.state = {
       status: false,
       messages: [],
+      showSettings: false,
     }
   }
+
+  toggleSettings = () => this.setState({
+    showSettings: !this.state.showSettings,
+  })
 
   addMessage = (message) => {
     this.setState({
@@ -47,9 +52,11 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <List messages={this.state.messages} mySocketId={this.props.mySocketId}/>
+        <Header toggleSettings={this.toggleSettings} />
+        <List messages={this.state.messages} mySocketId={this.props.mySocketId} />
         <Footer
           sendMessage={this.sendMessage} />
+        {this.state.showSettings && <Settings />}
       </View>
     )
   }

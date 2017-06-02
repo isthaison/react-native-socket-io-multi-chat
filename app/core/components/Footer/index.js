@@ -9,11 +9,12 @@ import {
 
 
 
+import { Keyboard } from 'react-native'
 class Footer extends Component {
   state = {
     text: '',
   }
-  
+
   changeText = (text) => {
     this.setState({
       text,
@@ -22,36 +23,52 @@ class Footer extends Component {
 
   sendMessage = () => {
     this.props.sendMessage(this.state.text);
+    this.changeText('');
+    Keyboard.dismiss()
   }
 
   render() {
 
     return (
-    <View style={styles.container}>
-      <TextInput
-        onChangeText={this.changeText}
-        value={this.state.text}
-        style={styles.input}
-        placeholder="Type in to send the message"
-      />
-      <TouchableOpacity style={styles.btnWrapper} onPress={this.sendMessage}>
-        <Text style={styles.btnText}>Send</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.container}>
+        <View style={styles.inputWrapper}>
+          <TextInput
+
+            onChangeText={this.changeText}
+            value={this.state.text}
+            style={styles.input}
+            placeholder="Type in to send the message"
+          />
+        </View>
+        <TouchableOpacity style={styles.btnWrapper} onPress={this.sendMessage}>
+          <Text style={styles.btnText}>Send</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 }
 const styles = {
-  input: {
+  inputWrapper: {
     width: '80%',
     height: 40,
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#e2e2e2',
+    borderRadius: 15,
+
+  },
+  input: {
     paddingLeft: 5,
-    color: 'black',
+    width: '100%',
+    height: 40,
+    color: '#a7aab1',
   },
   btnWrapper: {
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '20%'
   },
   btnText: {
     color: 'gray',
@@ -62,10 +79,11 @@ const styles = {
     position: 'absolute',
     bottom: 0,
     flexDirection: 'row',
+    padding: 15,
     borderTopWidth: 1,
     borderTopColor: 'black',
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#f8f8f8',
   },
 }
 Footer.propTypes = {}
