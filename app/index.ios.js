@@ -7,10 +7,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View
 } from 'react-native';
-import App from './core/App';
+import Main  from './core/';
 
-AppRegistry.registerComponent('app', () => App);
+AppRegistry.registerComponent('app', () => Main);

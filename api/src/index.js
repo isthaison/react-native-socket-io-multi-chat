@@ -1,33 +1,32 @@
 var http = require('http');
 
 // Send index.html to all requests
-var app = http.createServer(function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
+var app = http.createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end('string');
 });
 
 // Socket.io server listens to our app
 var io = require('socket.io').listen(app);
 
-// Send current time to all connected clients
-function sendTime() {
-    io.emit('time', { time: new Date().toJSON() });
-}
 
-function sendMessage(data) {
-    io.emit('message', data);
+function sendMessage(socketId) {
+    return function (data) {
+        const emitData = {
+            content: data,
+            authorId: socketId,
+            date: new Date().getTime(),
+        }
+        io.emit('message', emitData);
+    };
 }
-// Send current time every 10 secs
-// setInterval(sendTime, 10000);
 
 // Emit welcome message on connection
-io.on('connection', function(socket) {
-    console.log('cameBack');
-    // Use socket to communicate with this particular client only, sending it it's own id
-    socket.emit('welcome', { message: 'Welcome!', id: socket.id });
+io.on('connection', function (socket) {
+    console.log('New connection: ', socket.id);
 
-    socket.on('i am client', console.log);
-    socket.on('message', sendMessage);
+    socket.emit('init', { id: socket.id });
+    socket.on('message', sendMessage(socket.id));
 });
 
 app.listen(3000);

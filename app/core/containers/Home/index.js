@@ -1,0 +1,71 @@
+import React, { Component } from 'react';
+import {
+  View,
+  ActivityIndicator,
+} from 'react-native';
+import { connect } from 'react-redux';
+import List from './../../components/List';
+import Footer from './../../components/Footer';
+import SocketIOClient from 'socket.io-client/dist/socket.io';
+
+class Home extends Component {
+  constructor(props) {
+    super();
+    this.socket = props.socket;
+    this.socket.on('welcome', (data) => {
+      this.updateStatus(true);
+    });
+
+    this.socket.on('message', (data) => {
+      this.addMessage(data);
+    });
+
+    this.socket.on('disconnect', this.updateStatus(false));
+
+    this.state = {
+      status: false,
+      messages: [],
+    }
+  }
+
+  addMessage = (message) => {
+    this.setState({
+      messages: [...this.state.messages, message],
+    })
+  }
+
+  updateStatus = (status) => () => {
+    this.setState({
+      status,
+    });
+  }
+
+  sendMessage = (data) => {
+    this.socket.emit('message', data);
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <List messages={this.state.messages} mySocketId={this.props.mySocketId}/>
+        <Footer
+          sendMessage={this.sendMessage} />
+      </View>
+    )
+  }
+}
+
+Home.propTypes = {};
+const styles = {
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  }
+}
+const mapStateToProps = (state) => {
+  return ({
+    socket: state.socket,
+    mySocketId: state.connection.socketId,
+  })
+}
+export default connect(mapStateToProps)(Home);
