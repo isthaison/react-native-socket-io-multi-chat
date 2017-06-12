@@ -10,17 +10,36 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Home from './containers/Home';
+import Messanger from './containers/Messanger';
 import { initSocketConnection } from './actions';
 import { bindActionCreators } from 'redux';
 class App extends Component {
 
   componentDidMount() {
     this.props.socket.on('init', (data) => {
+      console.log('asd');
       this.props.initSocketConnection({
         socketId: data.id, // my socket id
+        connected: true,
       })
       this.props.socket.emit('setSettings', {});
     });
+
+    
+    this.props.socket.on('disconnected', (data) => {
+      this.props.initSocketConnection({
+        socketId: '', // my socket id
+        connected: false,
+      })
+      
+    });
+    this.props.socket.on('disconnect', (data) => {
+      this.props.initSocketConnection({
+        socketId: '', // my socket id
+        connected: false,
+      })
+    });
+
     this.props.socket.on('newJoiner', (data) => {
       if (data.id !== this.props.connection.socketId) {
         this.setState({
@@ -29,12 +48,12 @@ class App extends Component {
         this.toggle();
       }
     });
-    
+
     this.props.socket.on('leftJoiner', (data) => {
-        this.setState({
-          notificationText: 'Someone just left',
-        })
-        this.toggle();
+      this.setState({
+        notificationText: 'Someone just left',
+      })
+      this.toggle();
     });
 
   }
@@ -73,6 +92,9 @@ class App extends Component {
   }
 
   render() {
+    const isName = !!this.props.settings.name;
+    const isConnected = this.props.connection.connected;
+    const isSet = isName && isConnected;
     return (
       <View style={styles.container}>
         {this.state.showNotification &&
@@ -83,7 +105,8 @@ class App extends Component {
             </View>
           </Animated.View>
         }
-        <Home />
+        {( isSet && <Messanger />)}
+        {!isSet && <Home />}
       </View>
     );
   }
@@ -103,9 +126,10 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 });
-const mapStateToProps = ({ socket, connection }) => ({
+const mapStateToProps = ({ socket, connection, settings }) => ({
   socket,
-  connection
+  connection,
+  settings
 });
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ initSocketConnection }, dispatch)

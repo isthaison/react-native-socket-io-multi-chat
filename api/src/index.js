@@ -22,18 +22,20 @@ function sendMessage(socketId) {
 }
 function setSettings(socketId) {
     return function () {
-        io.emit('newJoiner', {id: socketId});
+        io.emit('newJoiner', { id: socketId });
     }
 }
 // Emit welcome message on connection
 io.on('connection', function (socket) {
     console.log('New connection: ', socket.id);
-
+    console.log(Object.keys(io.sockets.sockets));
     socket.emit('init', { id: socket.id });
     socket.on('setSettings', setSettings(socket.id));
     socket.on('message', sendMessage(socket.id));
-    socket.on('disconnect', function(){
-    console.log('Disconnected: ', socket.id);
+    socket.on('disconnect', function () {
+
+        // socket.sockets.socket(socket.id).emit('disconnected', true);
+        console.log('Disconnected: ', socket.id);
         io.emit('leftJoiner', {});
     });
 });

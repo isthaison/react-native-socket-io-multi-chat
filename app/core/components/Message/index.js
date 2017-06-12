@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Alert
 } from 'react-native'
 class Message extends Component {
 
@@ -15,6 +16,22 @@ class Message extends Component {
     this.setState({
       focused: !this.state.focused,
     });
+  }
+
+  reportMessage = () => {
+
+  };
+
+  showMenu = () => {
+    Alert.alert(
+      'What do you want to do?',
+      '',
+      [
+        { text: 'Report', onPress: this.reportMessage },
+        { text: 'Cancel', style: 'cancel' },
+      ],
+      { cancelable: false }
+    )
   }
 
   render() {
@@ -30,7 +47,7 @@ class Message extends Component {
     }
     return (
       <View style={containerStyle} >
-        <TouchableOpacity onPress={this.toggleFocus} style={styles.wrapper}>
+        <TouchableOpacity onLongPress={this.showMenu} onPress={this.toggleFocus} style={styles.wrapper}>
           <View style={messageStyle}>
             <Text style={messageTextStyle}>{this.props.data.content}</Text>
           </View>
@@ -41,6 +58,10 @@ class Message extends Component {
   }
 }
 const styles = {
+  date: {
+    color: 'gray',
+    fontSize: 12,
+  },
   container: {
     flexDirection: 'row',
     width: '100%',

@@ -1,78 +1,108 @@
 import React, { Component } from 'react';
 import {
   View,
-  ActivityIndicator,
+  Text,
+  TextInput,
+  TouchableOpacity,
+
 } from 'react-native';
 import { connect } from 'react-redux';
-import List from './../../components/List';
-import Footer from './../../components/Footer';
-import Header from './../../components/Header'
-import Settings from './../../components/Settings'
+import { saveNameToSettings } from './../../actions';
+import { bindActionCreators } from 'redux';
+
+
 class Home extends Component {
-  constructor(props) {
-    super();
-    this.socket = props.socket;
-    this.socket.on('welcome', (data) => {
-      this.updateStatus(true);
-    });
 
-    this.socket.on('message', (data) => {
-      this.addMessage(data);
-    });
-
-    this.socket.on('disconnect', this.updateStatus(false));
-
-    this.state = {
-      status: false,
-      messages: [],
-      showSettings: false,
-    }
+  state = {
+    name: '',
+    connected: false,
   }
-
-  toggleSettings = () => this.setState({
-    showSettings: !this.state.showSettings,
-  })
-
-  addMessage = (message) => {
+  constructor(props) {
+    super(props);
+    console.log(props)
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.setState({
-      messages: [...this.state.messages, message],
+      connected: nextProps.connection.connected,
     })
   }
+  changeNameInState = (name) => this.setState({
+    name,
+  });
 
-  updateStatus = (status) => () => {
-    this.setState({
-      status,
-    });
+  setName = () => {
+    this.props.saveNameToSettings({
+      name: this.state.name,
+    })
   }
-
-  sendMessage = (data) => {
-    this.socket.emit('message', data);
-  }
-
   render() {
     return (
-      <View style={styles.container}>
-        <Header toggleSettings={this.toggleSettings} />
-        <List messages={this.state.messages} mySocketId={this.props.mySocketId} />
-        <Footer
-          sendMessage={this.sendMessage} />
-        {this.state.showSettings && <Settings />}
+      <View style={styles.mainWrap}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Chat with everyone live!</Text>
+          <Text style={styles.description}>You can chat with everyone who is online. No notifications, message sent is only visible for people who are currently online. If they leave, message is gone for them. App doesn't store messages anywhere</Text>
+          <Text style={styles.label}>Set your name</Text>
+          <TextInput style={styles.input}
+            onChangeText={this.changeNameInState}
+            value={this.state.name}
+            placeholder="My name is bro"
+          />
+        </View>
+        {!this.state.connected && <Text>Not connected</Text>}
+        <TouchableOpacity style={styles.btnWrapper} onPress={this.setName}>
+          <Text style={styles.btnText}>
+            Save
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
 
-Home.propTypes = {};
 const styles = {
+  mainWrap: {
+    height: '100%',
+  },
+  btnWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    alignItems: 'center',
+
+    backgroundColor: '#00bd9c',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  btnText: {
+    color: 'white',
+  },
+  input: {
+    height: 50,
+  },
+  title: {
+    width: '100%',
+    fontSize: 17,
+    textAlign: 'center',
+    marginTop: 20,
+
+  },
+  label: {
+    marginTop: 30,
+  },
   container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
+    padding: 20,
+  },
+  description: {
+    fontSize: 12,
+    marginTop: 30,
   }
 }
-const mapStateToProps = (state) => {
-  return ({
-    socket: state.socket,
-    mySocketId: state.connection.socketId,
-  })
+const mapStateToProps = ({ socket, connection }) => ({
+  socket,
+  connection
+});
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ saveNameToSettings }, dispatch)
 }
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
