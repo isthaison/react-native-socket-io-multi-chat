@@ -6,6 +6,7 @@ var app = http.createServer(function (req, res) {
     res.end('string');
 });
 
+var names = [];
 // Socket.io server listens to our app
 var io = require('socket.io').listen(app);
 
@@ -15,14 +16,16 @@ function sendMessage(socketId) {
         const emitData = {
             content: data,
             authorId: socketId,
+            authorName: names[socketId],
             date: new Date().getTime(),
         }
         io.emit('message', emitData);
     };
 }
 function setSettings(socketId) {
-    return function () {
-        io.emit('newJoiner', { id: socketId });
+    return function (settings) {
+        names[socketId] = settings.name;
+        io.emit('newJoiner', { id: socketId,name: settings.name });
     }
 }
 // Emit welcome message on connection

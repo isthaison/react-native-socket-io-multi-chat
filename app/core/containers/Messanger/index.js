@@ -35,6 +35,7 @@ class Home extends Component {
   })
 
   addMessage = (message) => {
+    console.log(message);
     this.setState({
       messages: [...this.state.messages, message],
     })

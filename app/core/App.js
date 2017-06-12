@@ -22,7 +22,6 @@ class App extends Component {
         socketId: data.id, // my socket id
         connected: true,
       })
-      this.props.socket.emit('setSettings', {});
     });
 
     
@@ -41,9 +40,10 @@ class App extends Component {
     });
 
     this.props.socket.on('newJoiner', (data) => {
+      console.log(data);
       if (data.id !== this.props.connection.socketId) {
         this.setState({
-          notificationText: 'Someone just arrived',
+          notificationText: `${data.name} just arrived`,
         })
         this.toggle();
       }

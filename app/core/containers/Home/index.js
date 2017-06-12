@@ -32,6 +32,7 @@ class Home extends Component {
   });
 
   setName = () => {
+    this.props.socket.emit('setSettings', { name: this.state.name })
     this.props.saveNameToSettings({
       name: this.state.name,
     })
