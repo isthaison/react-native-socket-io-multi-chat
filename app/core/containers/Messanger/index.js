@@ -37,7 +37,6 @@ class Home extends Component {
   })
 
   addMessage = (message) => {
-    console.log(message);
     this.setState({
       messages: [...this.state.messages, message],
     })
@@ -56,7 +55,10 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header toggleSettings={this.toggleSettings} />
+        <Header
+          leaveChat={this.props.socket.disconnect}
+          toggleSettings={this.toggleSettings}
+        />
         <View style={styles.list}>
           <List messages={this.state.messages} mySocketId={this.props.mySocketId} />
         </View>

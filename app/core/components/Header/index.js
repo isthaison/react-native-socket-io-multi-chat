@@ -14,21 +14,29 @@ export default class Header extends Component {
     return (
       <View>
         <View style={styles.container}>
-          <TouchableOpacity onPress={this.props.toggleSettings}>
+          <TouchableOpacity onPress={this.props.leaveChat} style={styles.button}>
+            <Text>Leave chat</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.props.toggleSettings} style={styles.button}>
             <Text>Settings</Text>
           </TouchableOpacity>
         </View>
-
       </View>);
   }
 }
 
 
 const styles = {
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     height: 40,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingRight: 20,
   }
 }

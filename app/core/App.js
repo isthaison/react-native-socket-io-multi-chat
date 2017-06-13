@@ -40,7 +40,6 @@ class App extends Component {
     });
 
     this.props.socket.on('newJoiner', (data) => {
-      console.log(data);
       if (data.id !== this.props.connection.socketId) {
         this.toggleNotification(true, `${data.name} just arrived`);
       }
