@@ -15,20 +15,20 @@ In progress! I am currently still working on the App. My target is to make MVP w
 - Jenkins
 
 
-##Mac osx
-###Run server 
+## Mac osx
+### Run server 
 ```
 npm start
 ```
 
-###Run iOS
+### Run iOS
 On iOS the IP to reach node is `localhost:3000`.
 
 ```
 react-native run-ios
 ```
 
-###Run Android
+### Run Android
 At the first place you need to have emulator running. You can setup it via Android Studio.
 For now the IP for android version to reach node is `10.0.2.2`, as Android Develoers made it as a bridge.
 
