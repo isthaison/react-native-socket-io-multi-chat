@@ -26,7 +26,6 @@ export default class List extends Component {
       case 'enterChat':
         return <InfoMessage key={key} text={`${data.name} has joined the chat`} />
       break;
-
     }
   }
 
