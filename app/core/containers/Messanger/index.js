@@ -22,12 +22,24 @@ class Home extends Component {
     this.socket.on('message', (data) => {
       this.addMessage(data);
     });
+
     this.socket.on('newSettings', (data) => {
       this.setState({
         messages: [...this.state.messages, { ...data, type: 'settingsChanged' }],
       });
     });
 
+    this.socket.on('newJoiner', (data) => {
+      this.setState({
+        messages: [...this.state.messages, { ...data, type: 'enterChat' }],
+      });
+    });
+
+    this.socket.on('leftJoiner', (data) => {
+      this.setState({
+        messages: [...this.state.messages, { ...data, type: 'exitChat' }],
+      });
+    });
 
     this.state = {
       messages: [],

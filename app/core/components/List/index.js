@@ -4,6 +4,12 @@ import {
 } from 'react-native';
 import Message from './../Message';
 
+const InfoMessage = ({text}) => (
+<View style={styles.infoParent}>
+  <Text style={styles.info} >{text}</Text>
+</View>
+        
+);
 export default class List extends Component {
 
   displayRow = (data, key) => {
@@ -12,10 +18,15 @@ export default class List extends Component {
         return <Message key={key} data={data} mySocketId={this.props.mySocketId} />;
         break;
       case 'settingsChanged':
-        return <View key={key} style={styles.infoParent}><Text style={styles.info} >{data.oldName} has changed name to {data.newName}</Text></View>
-         
-          
+        return <InfoMessage key={key} text={`${data.oldName} has changed name to ${data.newName}`} />
         break;
+      case 'exitChat':
+        return <InfoMessage  key={key} text={`${data.name} has exit the chat`} />
+      break;
+      case 'enterChat':
+        return <InfoMessage key={key} text={`${data.name} has joined the chat`} />
+      break;
+
     }
   }
 

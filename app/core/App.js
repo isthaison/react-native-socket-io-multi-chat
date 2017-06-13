@@ -11,15 +11,10 @@ import {
 import { connect } from 'react-redux';
 import Home from './containers/Home';
 import Messanger from './containers/Messanger';
-import Notification from './components/Notification';
 import { initSocketConnection } from './actions';
 import { bindActionCreators } from 'redux';
 
 class App extends Component {
-
-  state = {
-    showNotification: false,
-  }
 
   componentDidMount() {
     this.props.socket.on('init', (data) => {
@@ -43,29 +38,9 @@ class App extends Component {
       })
     });
 
-    this.props.socket.on('newJoiner', (data) => {
-      if (data.id !== this.props.connection.socketId) {
-        this.toggleNotification(true, `${data.name} just arrived`);
-      }
-    });
 
-    this.props.socket.on('leftJoiner', (data) => {
-      this.toggleNotification(true, 'Someone just left');
-    });
   }
 
-  toggleNotification(show, text) {
-    this.setState({
-      showNotification: true,
-      notificationText: text,
-    })
-  }
-
-  hideAnimation = () => {
-    this.setState({
-      showNotification: false,
-    })
-  }
 
   render() {
     const isName = !!this.props.settings.name;
@@ -74,12 +49,6 @@ class App extends Component {
 
     return (
       <View style={styles.container}>
-        <Notification 
-          show={this.state.showNotification}
-          onAnimationEnded={this.hideAnimation}
-          text={this.state.notificationText}
-        />
-
         {( isSet && <Messanger />)}
         { !isSet && <Home />}
       </View>
