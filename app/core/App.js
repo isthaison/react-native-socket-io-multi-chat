@@ -14,7 +14,12 @@ import Messanger from './containers/Messanger';
 import Notification from './components/Notification';
 import { initSocketConnection } from './actions';
 import { bindActionCreators } from 'redux';
+
 class App extends Component {
+
+  state = {
+    showNotification: false,
+  }
 
   componentDidMount() {
     this.props.socket.on('init', (data) => {
@@ -23,7 +28,6 @@ class App extends Component {
         connected: true,
       })
     });
-
     
     this.props.socket.on('disconnected', (data) => {
       this.props.initSocketConnection({
@@ -48,10 +52,6 @@ class App extends Component {
     this.props.socket.on('leftJoiner', (data) => {
       this.toggleNotification(true, 'Someone just left');
     });
-
-  }
-  state = {
-    showNotification: false,
   }
 
   toggleNotification(show, text) {

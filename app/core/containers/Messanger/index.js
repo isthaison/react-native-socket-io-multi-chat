@@ -15,18 +15,12 @@ class Home extends Component {
   constructor(props) {
     super();
     this.socket = props.socket;
-    this.socket.on('welcome', (data) => {
-      this.updateStatus(true);
-    });
 
     this.socket.on('message', (data) => {
       this.addMessage(data);
     });
 
-    this.socket.on('disconnect', this.updateStatus(false));
-
     this.state = {
-      status: false,
       messages: [],
       showSettings: false,
     }
@@ -40,12 +34,6 @@ class Home extends Component {
     this.setState({
       messages: [...this.state.messages, message],
     })
-  }
-
-  updateStatus = (status) => () => {
-    this.setState({
-      status,
-    });
   }
 
   sendMessage = (data) => {
@@ -87,7 +75,6 @@ const styles = {
     position: 'absolute',
   },
   list: {
-    // height: 0.8,
     paddingBottom: 150,
   },
 };
