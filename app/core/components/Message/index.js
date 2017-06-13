@@ -61,13 +61,18 @@ const styles = {
   date: {
     color: 'gray',
     fontSize: 12,
+    marginTop: 2,
+    textAlign: 'center',
   },
   container: {
     flexDirection: 'row',
     width: '100%',
+    paddingLeft: 20,
   },
   containerIfAuthor: {
     justifyContent: 'flex-end',
+    paddingLeft: 0,
+    paddingRight: 20,
   },
   wrapper: {
     flexDirection: 'column',
@@ -84,7 +89,6 @@ const styles = {
     color: 'white',
   },
   message: {
-    marginLeft: 20,
     backgroundColor: '#d3d8dc',
     paddingTop: 10,
     paddingBottom: 10,
@@ -97,8 +101,6 @@ const styles = {
 
   messageIfAuthor: {
     backgroundColor: '#00bd9c',
-    marginRight: 20,
-    marginLeft: 0,
   }
 }
 Message.propTypes = {
