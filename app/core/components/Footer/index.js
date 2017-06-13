@@ -53,18 +53,19 @@ class Footer extends Component {
 const styles = {
   inputWrapper: {
     width: '80%',
-    height: 40,
+    height: 30,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#e2e2e2',
-    borderRadius: 15,
+    // borderWidth: 1,
+    // borderColor: '#e2e2e2',
+    borderRadius: 10,
 
   },
   input: {
-    paddingLeft: 5,
+    paddingLeft: 10,
     width: '100%',
-    height: 40,
+    height: 30,
+    fontSize: 14,
     color: '#a7aab1',
   },
   btnWrapper: {
@@ -74,16 +75,18 @@ const styles = {
     width: '20%'
   },
   btnText: {
-    color: 'gray',
+    color: 'white',
   },
   container: {
-    height: 90,
+    height: 60,
     flexDirection: 'row',
-    padding: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: '#cacaca',
+    borderTopColor: '#00bd9c',
     width: '100%',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#00bd9c',
   },
 }
 Footer.propTypes = {}

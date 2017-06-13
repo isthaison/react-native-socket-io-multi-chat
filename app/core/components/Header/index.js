@@ -14,10 +14,10 @@ export default class Header extends Component {
     return (
         <View style={styles.container}>
           <TouchableOpacity onPress={this.props.leaveChat} style={styles.button}>
-            <Text>Leave chat</Text>
+            <Text style={styles.buttonText}>Leave chat</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.props.toggleSettings} style={styles.button}>
-            <Text>Settings</Text>
+            <Text style={styles.buttonText}>Settings</Text>
           </TouchableOpacity>
         </View>
     );
@@ -31,6 +31,9 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonText: {
+    color: 'white',
+  },
   container: {
     height: 40,
     width: '100%',
@@ -39,7 +42,7 @@ const styles = {
     paddingRight: 20,
     zIndex: 200,
     // flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#00bd9c',
     position: 'absolute',
     top: 0,
   }

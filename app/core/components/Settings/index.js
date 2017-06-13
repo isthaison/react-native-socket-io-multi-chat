@@ -29,7 +29,9 @@ export default class Settings extends Component {
           placeholderTextColor="white"
           value={this.state.name}
           onChangeText={(name) => this.setState({ name })}
-          style={styles.input} />
+          style={styles.input}
+          borderBottomColor="white"
+          borderBottomWidth={1} />
         <TouchableOpacity style={styles.btnWrapper} onPress={this.updateName}>
           <Text style={styles.btnText}>Save</Text>
         </TouchableOpacity>
@@ -45,11 +47,13 @@ styles = {
     width: '100%',
     height: 100,
     paddingLeft: 30,
-    backgroundColor: '#c7c7c7'
+    backgroundColor: '#00ab8b'
   },
   input: {
     height: 50,
     color: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
   },
   btnText: {
     color: 'white',

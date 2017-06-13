@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     paddingTop: 20,
+    backgroundColor: 'white',
   },
 
 });
