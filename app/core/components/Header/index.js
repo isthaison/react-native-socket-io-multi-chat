@@ -25,14 +25,6 @@ export default class Header extends Component {
 
 
 const styles = {
-  settings: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'black',
-  },
   container: {
     height: 40,
     alignItems: 'flex-end',

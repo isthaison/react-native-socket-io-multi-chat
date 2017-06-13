@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
 import SocketIOClient from 'socket.io-client/dist/socket.io';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux';
@@ -16,9 +16,11 @@ class Main extends Component {
   
   render() {
     return (
+      <View style={{height: '100%'}}>
       <Provider store={store}>
         <App />
       </Provider>
+      </View>
     );
   }
 }

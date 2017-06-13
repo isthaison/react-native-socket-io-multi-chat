@@ -82,7 +82,7 @@ class App extends Component {
         />
 
         {( isSet && <Messanger />)}
-        {!isSet && <Home />}
+        { !isSet && <Home />}
       </View>
     );
   }

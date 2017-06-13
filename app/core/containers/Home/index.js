@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 class Home extends Component {
 
   state = {
-    name: '',
+    name: 'Test User',
     connected: false,
   }
   constructor(props) {
@@ -26,7 +26,7 @@ class Home extends Component {
       connected: nextProps.connection.connected,
     })
   }
-  
+
   changeNameInState = (name) => this.setState({
     name,
   });

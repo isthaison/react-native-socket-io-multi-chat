@@ -40,7 +40,10 @@ class Footer extends Component {
             placeholder="Type in to send the message"
           />
         </View>
-        <TouchableOpacity style={styles.btnWrapper} onPress={this.sendMessage}>
+        <TouchableOpacity
+          style={styles.btnWrapper}
+          onPress={this.sendMessage}
+          disabled={!this.state.text}>
           <Text style={styles.btnText}>Send</Text>
         </TouchableOpacity>
       </View>
@@ -75,9 +78,7 @@ const styles = {
   },
   container: {
     flex: 1,
-    height: 100,
-    position: 'absolute',
-    bottom: 0,
+    height: 90,
     flexDirection: 'row',
     padding: 15,
     borderTopWidth: 1,
