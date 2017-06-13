@@ -22,7 +22,7 @@ npm start
 ```
 
 ###Run iOS
-On iOS the IP to reach node is localhost:3000.
+On iOS the IP to reach node is `localhost:3000`.
 
 ```
 react-native run-ios
