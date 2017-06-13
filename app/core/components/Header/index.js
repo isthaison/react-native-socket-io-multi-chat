@@ -12,7 +12,6 @@ export default class Header extends Component {
   render() {
 
     return (
-      <View>
         <View style={styles.container}>
           <TouchableOpacity onPress={this.props.leaveChat} style={styles.button}>
             <Text>Leave chat</Text>
@@ -21,7 +20,7 @@ export default class Header extends Component {
             <Text>Settings</Text>
           </TouchableOpacity>
         </View>
-      </View>);
+    );
   }
 }
 
@@ -38,5 +37,10 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     paddingRight: 20,
+    zIndex: 200,
+    // flex: 1,
+    backgroundColor: 'white',
+    position: 'absolute',
+    top: 0,
   }
 }

@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
 
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -22,6 +23,7 @@ class Home extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('a')
     this.setState({
       connected: nextProps.connection.connected,
     })
@@ -39,7 +41,7 @@ class Home extends Component {
   }
   render() {
     return (
-      <View style={styles.mainWrap}>
+      <KeyboardAvoidingView style={styles.mainWrap} behavior="padding">
         <View style={styles.container}>
           <Text style={styles.title}>Chat with everyone live!</Text>
           <Text style={styles.description}>You can chat with everyone who is online. No notifications, message sent is only visible for people who are currently online. If they leave, message is gone for them. App doesn't store messages anywhere</Text>
@@ -59,7 +61,7 @@ class Home extends Component {
             Save
           </Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -69,14 +71,12 @@ const styles = {
     height: '100%',
   },
   btnWrapper: {
-    position: 'absolute',
-    bottom: 0,
     width: '100%',
+    flex: 1,
+    height: 20,
+    justifyContent: 'center',
     alignItems: 'center',
-
     backgroundColor: '#00bd9c',
-    paddingTop: 10,
-    paddingBottom: 10,
   },
   btnText: {
     color: 'white',
@@ -96,6 +96,7 @@ const styles = {
   },
   container: {
     padding: 20,
+    flex: 12,
   },
   description: {
     fontSize: 12,

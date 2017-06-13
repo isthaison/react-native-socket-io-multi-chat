@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 
 export default class Settings extends Component {
@@ -16,6 +17,7 @@ export default class Settings extends Component {
 
   updateName = () => {
     this.props.updateName({ name: this.state.name });
+    Keyboard.dismiss();
   }
 
   render() {

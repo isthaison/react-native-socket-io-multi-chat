@@ -3,6 +3,7 @@ import {
   View,
   ActivityIndicator,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -60,15 +61,16 @@ class Home extends Component {
           leaveChat={this.props.socket.disconnect}
           toggleSettings={this.toggleSettings}
         />
+        <KeyboardAvoidingView style={styles.footer} behavior="position">
         <View style={styles.list}>
           <List messages={this.state.messages} mySocketId={this.props.mySocketId} />
         </View>
-        <KeyboardAvoidingView style={styles.footer} behavior="padding">
           <Footer
             sendMessage={this.sendMessage} />
         </KeyboardAvoidingView>
         {this.state.showSettings && <Settings name={this.props.settings.name} updateName={this.setSettings} />}
       </View>
+
     )
   }
 }
@@ -80,15 +82,17 @@ const styles = {
     flex: 1,
     backgroundColor: '#F5FCFF',
     height: '100%',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     flexDirection: 'column',
   },
   footer: {
-    bottom: 0,
-    position: 'absolute',
+    flex: 2,
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   list: {
-    paddingBottom: 150,
+    flex: 11,
+    justifyContent: 'center',
   },
 };
 
