@@ -1,5 +1,12 @@
 # React Native - Socket IO - Chat
 
+**Actual todo**
+- Move Messages from state in container to global store
+- Solve reconnecting issues (sometimes disconnecting and getting back to first screen). Need to play with it
+- Disable KeyboardAvoidingView for Android
+- Improve Design of settings
+- Make possible to leave the chat
+
 **13 June 2017**
 In progress! I am currently still working on the App. My target is to make MVP with possibility to:
 - Join/Leave the chat
