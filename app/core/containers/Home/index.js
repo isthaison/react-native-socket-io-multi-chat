@@ -19,14 +19,14 @@ class Home extends Component {
   }
   constructor(props) {
     super(props);
-    console.log(props)
   }
+
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({
       connected: nextProps.connection.connected,
     })
   }
+  
   changeNameInState = (name) => this.setState({
     name,
   });
@@ -51,7 +51,10 @@ class Home extends Component {
           />
         </View>
         {!this.state.connected && <Text>Not connected</Text>}
-        <TouchableOpacity style={styles.btnWrapper} onPress={this.setName}>
+        <TouchableOpacity
+          style={styles.btnWrapper}
+          onPress={this.setName}
+          disabled={!this.state.name}>
           <Text style={styles.btnText}>
             Save
           </Text>

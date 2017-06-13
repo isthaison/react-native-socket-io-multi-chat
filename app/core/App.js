@@ -11,13 +11,13 @@ import {
 import { connect } from 'react-redux';
 import Home from './containers/Home';
 import Messanger from './containers/Messanger';
+import Notification from './components/Notification';
 import { initSocketConnection } from './actions';
 import { bindActionCreators } from 'redux';
 class App extends Component {
 
   componentDidMount() {
     this.props.socket.on('init', (data) => {
-      console.log('asd');
       this.props.initSocketConnection({
         socketId: data.id, // my socket id
         connected: true,
@@ -42,50 +42,27 @@ class App extends Component {
     this.props.socket.on('newJoiner', (data) => {
       console.log(data);
       if (data.id !== this.props.connection.socketId) {
-        this.setState({
-          notificationText: `${data.name} just arrived`,
-        })
-        this.toggle();
+        this.toggleNotification(true, `${data.name} just arrived`);
       }
     });
 
     this.props.socket.on('leftJoiner', (data) => {
-      this.setState({
-        notificationText: 'Someone just left',
-      })
-      this.toggle();
+      this.toggleNotification(true, 'Someone just left');
     });
 
   }
   state = {
     showNotification: false,
-    notificationText: '',
-    animation: new Animated.Value(0),
   }
 
-  toggle() {
+  toggleNotification(show, text) {
     this.setState({
       showNotification: true,
+      notificationText: text,
     })
-    this.state.animation.setValue(0);  //Step 3
-    Animated.sequence([
-      Animated.timing(this.state.animation,
-        {
-          toValue: 20,
-          duration: 500,
-        }
-      ),
-      Animated.delay(500),
-      Animated.timing(this.state.animation,
-        {
-          toValue: 0,
-          duration: 500,
-        })
-
-    ]).start(this.notificationEnded);
   }
 
-  notificationEnded = () => {
+  hideAnimation = () => {
     this.setState({
       showNotification: false,
     })
@@ -95,16 +72,15 @@ class App extends Component {
     const isName = !!this.props.settings.name;
     const isConnected = this.props.connection.connected;
     const isSet = isName && isConnected;
+
     return (
       <View style={styles.container}>
-        {this.state.showNotification &&
-          <Animated.View
-            style={[styles.notification, { height: this.state.animation }]}>
-            <View>
-              <Text style={styles.notificationText}>{this.state.notificationText}</Text>
-            </View>
-          </Animated.View>
-        }
+        <Notification 
+          show={this.state.showNotification}
+          onAnimationEnded={this.hideAnimation}
+          text={this.state.notificationText}
+        />
+
         {( isSet && <Messanger />)}
         {!isSet && <Home />}
       </View>
@@ -118,19 +94,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
   },
-  notification: {
-    backgroundColor: 'red',
-    height: 0,
-  },
-  notificationText: {
-    color: 'white',
-  }
+
 });
+
 const mapStateToProps = ({ socket, connection, settings }) => ({
   socket,
   connection,
   settings
 });
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ initSocketConnection }, dispatch)
 }
