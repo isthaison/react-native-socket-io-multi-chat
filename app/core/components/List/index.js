@@ -12,7 +12,9 @@ export default class List extends Component {
         return <Message key={key} data={data} mySocketId={this.props.mySocketId} />;
         break;
       case 'settingsChanged':
-        return <Text style={styles.info} key={key}>{data.oldName} has changed name to {data.newName}</Text>
+        return <View key={key} style={styles.infoParent}><Text style={styles.info} >{data.oldName} has changed name to {data.newName}</Text></View>
+         
+          
         break;
     }
   }
@@ -33,13 +35,19 @@ export default class List extends Component {
 }
 
 const styles = {
-  info: {
-    textAlign: 'center',
-    width: '100%',
-    color: '#c7c7c7',
-    fontSize: 14,
+  infoParent: {
+    flexDirection: 'row',
     marginTop: 10,
     marginBottom: 10,
+    width: '100%',
+  },
+  info: {
+    width: '100%',
+    textAlign: 'center',
+    color: '#c7c7c7',
+    fontSize: 14,
+    flexWrap: "wrap",
+
   },
   scroll: {
     flexDirection: 'column',
