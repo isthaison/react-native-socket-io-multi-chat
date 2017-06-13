@@ -57,6 +57,7 @@ class Message extends Component {
     )
   }
 }
+
 const styles = {
   date: {
     color: 'gray',
