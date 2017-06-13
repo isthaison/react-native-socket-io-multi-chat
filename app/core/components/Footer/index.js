@@ -77,12 +77,11 @@ const styles = {
     color: 'gray',
   },
   container: {
-    flex: 1,
     height: 90,
     flexDirection: 'row',
     padding: 15,
     borderTopWidth: 1,
-    borderTopColor: 'black',
+    borderTopColor: '#cacaca',
     width: '100%',
     backgroundColor: '#f8f8f8',
   },
