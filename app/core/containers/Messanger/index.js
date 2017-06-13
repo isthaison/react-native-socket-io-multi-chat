@@ -4,7 +4,9 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { saveNameToSettings } from './../../actions';
 import List from './../../components/List';
 import Footer from './../../components/Footer';
 import Header from './../../components/Header';
@@ -19,6 +21,12 @@ class Home extends Component {
     this.socket.on('message', (data) => {
       this.addMessage(data);
     });
+    this.socket.on('newSettings', (data) => {
+      this.setState({
+        messages: [...this.state.messages, { ...data, type: 'settingsChanged' }],
+      });
+    });
+
 
     this.state = {
       messages: [],
@@ -32,12 +40,17 @@ class Home extends Component {
 
   addMessage = (message) => {
     this.setState({
-      messages: [...this.state.messages, message],
+      messages: [...this.state.messages, { ...message, type: 'message' }],
     })
   }
 
   sendMessage = (data) => {
     this.socket.emit('message', data);
+  }
+
+  setSettings = (data) => {
+    this.props.socket.emit('setSettings', data)
+    this.props.saveNameToSettings(data);
   }
 
   render() {
@@ -54,7 +67,7 @@ class Home extends Component {
           <Footer
             sendMessage={this.sendMessage} />
         </KeyboardAvoidingView>
-        {this.state.showSettings && <Settings />}
+        {this.state.showSettings && <Settings name={this.props.settings.name} updateName={this.setSettings} />}
       </View>
     )
   }
@@ -81,8 +94,10 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return ({
+    settings: state.settings,
     socket: state.socket,
     mySocketId: state.connection.socketId,
   })
 }
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ saveNameToSettings }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

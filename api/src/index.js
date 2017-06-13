@@ -24,8 +24,16 @@ function sendMessage(socketId) {
 }
 function setSettings(socketId) {
     return function (settings) {
+        var oldName = names[socketId];
         names[socketId] = settings.name;
-        io.emit('newJoiner', { id: socketId,name: settings.name });
+        if (oldName) {
+            var newName = settings.name;
+            io.emit('newSettings', { id: socketId, newName: newName, oldName: oldName });
+            return;
+        }
+
+        io.emit('newJoiner', { id: socketId, name: settings.name });
+
     }
 }
 // Emit welcome message on connection

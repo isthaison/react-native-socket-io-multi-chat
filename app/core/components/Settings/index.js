@@ -7,16 +7,28 @@ import {
 } from 'react-native';
 
 export default class Settings extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: props.name,
+    }
+  }
 
+  updateName = () => {
+    this.props.updateName({ name: this.state.name });
+  }
 
   render() {
+    const { name, updateName } = this.props;
     return (
       <View style={styles.container}>
         <TextInput
-          placeholder="Type your name" 
+          placeholder="Type your name"
           placeholderTextColor="white"
-          style={styles.input}/>
-        <TouchableOpacity style={styles.btnWrapper}>
+          value={this.state.name}
+          onChangeText={(name) => this.setState({ name })}
+          style={styles.input} />
+        <TouchableOpacity style={styles.btnWrapper} onPress={this.updateName}>
           <Text style={styles.btnText}>Save</Text>
         </TouchableOpacity>
       </View>
@@ -26,12 +38,12 @@ export default class Settings extends Component {
 styles = {
   container: {
     position: 'absolute',
-    top: 50,
+    top: 40,
     left: 0,
     width: '100%',
-    height: '50%',
-    padding: 30,
-    backgroundColor: 'black'
+    height: 100,
+    paddingLeft: 30,
+    backgroundColor: '#c7c7c7'
   },
   input: {
     height: 50,
