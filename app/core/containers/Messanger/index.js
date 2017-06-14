@@ -64,6 +64,7 @@ class Home extends Component {
   setSettings = (data) => {
     this.props.socket.emit('setSettings', data)
     this.props.saveNameToSettings(data);
+    this.toggleSettings();
   }
 
   render() {
