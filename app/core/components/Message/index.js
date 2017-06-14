@@ -60,7 +60,7 @@ class Message extends Component {
 
 const styles = {
   date: {
-    color: 'gray',
+    color: '#c7c7c7',
     fontSize: 12,
     marginTop: 2,
     textAlign: 'center',

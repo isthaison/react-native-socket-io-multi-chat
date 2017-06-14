@@ -3,13 +3,7 @@ import {
   View, ScrollView, Text
 } from 'react-native';
 import Message from './../Message';
-
-const InfoMessage = ({text}) => (
-<View style={styles.infoParent}>
-  <Text style={styles.info} >{text}</Text>
-</View>
-        
-);
+import InfoMessage from './../InfoMessage';
 export default class List extends Component {
 
   displayRow = (data, key) => {
@@ -45,20 +39,7 @@ export default class List extends Component {
 }
 
 const styles = {
-  infoParent: {
-    flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 10,
-    width: '100%',
-  },
-  info: {
-    width: '100%',
-    textAlign: 'center',
-    color: '#c7c7c7',
-    fontSize: 14,
-    flexWrap: "wrap",
 
-  },
   scroll: {
     flexDirection: 'column',
     width: '100%',

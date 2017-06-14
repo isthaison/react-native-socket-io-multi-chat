@@ -37,8 +37,6 @@ class App extends Component {
         connected: false,
       })
     });
-
-
   }
 
 
