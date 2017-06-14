@@ -37,7 +37,7 @@ react-native run-ios
 
 ### Run Android
 At the first place you need to have emulator running. You can setup it via Android Studio.
-For now the IP for android version to reach node is `10.0.2.2`, as Android Develoers made it as a bridge.
+For now the IP for android version to reach node is `10.0.2.2`, as Android Developers made it as a bridge.
 
 ```
 react-native run-android
